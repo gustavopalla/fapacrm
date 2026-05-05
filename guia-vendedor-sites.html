@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia do Vendedor de Sites</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --surface2: #16161f;
+    --accent: #f0c040;
+    --accent2: #ff6b35;
+    --text: #e8e8f0;
+    --muted: #7a7a9a;
+    --border: rgba(240,192,64,0.15);
+    --success: #4ade80;
+    --danger: #f87171;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* Hero */
+  .hero {
+    position: relative;
+    padding: 80px 24px 60px;
+    text-align: center;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -120px; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(240,192,64,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(240,192,64,0.1);
+    border: 1px solid var(--border);
+    color: var(--accent);
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 8vw, 3.8rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+  .hero h1 span { color: var(--accent); }
+  .hero p {
+    color: var(--muted);
+    font-size: 16px;
+    max-width: 520px;
+    margin: 0 auto 40px;
+  }
+  .pills {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+  }
+  .pill {
+    background: var(--surface2);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 100px;
+    padding: 8px 18px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .pill strong { color: var(--text); }
+
+  /* Nav dots */
+  .nav-strip {
+    display: flex;
+    gap: 0;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav-strip::-webkit-scrollbar { display: none; }
+  .nav-item {
+    flex: 0 0 auto;
+    padding: 14px 24px;
+    font-size: 12px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    cursor: pointer;
+    border-right: 1px solid rgba(255,255,255,0.06);
+    white-space: nowrap;
+    transition: color 0.2s;
+  }
+  .nav-item:hover, .nav-item.active { color: var(--accent); }
+
+  /* Sections */
+  .section {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 60px 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    display: none;
+  }
+  .section.active { display: block; }
+
+  .section-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .section h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.6rem, 5vw, 2.4rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+  .section .intro {
+    color: var(--muted);
+    font-size: 15px;
+    margin-bottom: 40px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  /* Cards */
+  .card {
+    background: var(--surface);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 20px;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: rgba(240,192,64,0.25); }
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .card-icon {
+    width: 44px; height: 44px;
+    background: rgba(240,192,64,0.1);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .card-icon.orange { background: rgba(255,107,53,0.1); }
+  .card-icon.green { background: rgba(74,222,128,0.1); }
+  .card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .card .sub { color: var(--muted); font-size: 13px; }
+  .card p { color: var(--muted); font-size: 14px; line-height: 1.7; }
+
+  /* Steps */
+  .steps { counter-reset: step; }
+  .step {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 28px;
+    position: relative;
+  }
+  .step::before {
+    content: '';
+    position: absolute;
+    left: 19px; top: 44px;
+    width: 2px;
+    height: calc(100% + 8px);
+    background: rgba(255,255,255,0.06);
+  }
+  .step:last-child::before { display: none; }
+  .step-num {
+    width: 40px; height: 40px;
+    background: var(--surface);
+    border: 1px solid rgba(240,192,64,0.3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    flex-shrink: 0;
+    counter-increment: step;
+  }
+  .step-body h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .step-body p { color: var(--muted); font-size: 14px; }
+
+  /* Script box */
+  .script-box {
+    background: var(--surface2);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 12px 12px 0;
+    padding: 20px 24px;
+    margin: 20px 0;
+    font-size: 14px;
+    font-style: italic;
+    color: #c8c8e0;
+    line-height: 1.8;
+    position: relative;
+  }
+  .script-box::before {
+    content: 'SCRIPT';
+    position: absolute;
+    top: -10px; left: 20px;
+    background: var(--accent);
+    color: #000;
+    font-family: 'Syne', sans-serif;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    padding: 2px 10px;
+    border-radius: 100px;
+    font-style: normal;
+  }
+
+  /* Pricing table */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .price-card {
+    background: var(--surface);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+  }
+  .price-card.highlight {
+    border-color: rgba(240,192,64,0.4);
+    background: rgba(240,192,64,0.05);
+  }
+  .price-tier {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .price-value {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .price-desc { font-size: 12px; color: var(--muted); margin-bottom: 16px; }
+  .price-features { list-style: none; text-align: left; }
+  .price-features li {
+    font-size: 13px;
+    color: var(--muted);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    display: flex; gap: 8px; align-items: flex-start;
+  }
+  .price-features li::before { content: '→'; color: var(--accent); flex-shrink: 0; }
+
+  /* Warning / tip blocks */
+  .tip {
+    background: rgba(74,222,128,0.07);
+    border: 1px solid rgba(74,222,128,0.2);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 20px 0;
+    font-size: 14px;
+    color: #a8f0c0;
+    display: flex; gap: 12px;
+  }
+  .tip .ti { flex-shrink: 0; font-size: 18px; }
+  .warn {
+    background: rgba(248,113,113,0.07);
+    border: 1px solid rgba(248,113,113,0.2);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 20px 0;
+    font-size: 14px;
+    color: #fca5a5;
+    display: flex; gap: 12px;
+  }
+
+  /* Checklist */
+  .checklist { list-style: none; margin: 16px 0; }
+  .checklist li {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    display: flex; gap: 12px; align-items: flex-start;
+    font-size: 14px; color: var(--muted);
+  }
+  .checklist li .ck {
+    width: 20px; height: 20px;
+    background: rgba(240,192,64,0.1);
+    border: 1px solid rgba(240,192,64,0.3);
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    color: var(--accent);
+    transition: background 0.2s;
+  }
+  .checklist li.done .ck { background: rgba(240,192,64,0.3); }
+  .checklist li.done span { text-decoration: line-through; opacity: 0.5; }
+
+  /* Objections */
+  .obj-block {
+    background: var(--surface);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    border: 1px solid rgba(255,255,255,0.07);
+  }
+  .obj-q {
+    padding: 18px 24px;
+    background: rgba(248,113,113,0.08);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 14px;
+    font-weight: 500;
+    color: #fca5a5;
+    display: flex; gap: 10px;
+  }
+  .obj-a {
+    padding: 18px 24px;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .obj-a strong { color: var(--text); }
+
+  /* Bottom CTA */
+  .cta-block {
+    background: linear-gradient(135deg, rgba(240,192,64,0.08), rgba(255,107,53,0.06));
+    border: 1px solid rgba(240,192,64,0.2);
+    border-radius: 20px;
+    padding: 40px 32px;
+    text-align: center;
+    margin-top: 40px;
+  }
+  .cta-block h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 12px;
+  }
+  .cta-block p { color: var(--muted); font-size: 14px; max-width: 480px; margin: 0 auto; }
+
+  /* Utilities */
+  .tag {
+    display: inline-block;
+    background: rgba(255,107,53,0.12);
+    color: var(--accent2);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 100px;
+    margin-bottom: 12px;
+    font-family: 'Syne', sans-serif;
+    letter-spacing: 0.05em;
+  }
+  .divider {
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    margin: 32px 0;
+  }
+  b, strong { color: var(--text); }
+
+  @media (max-width: 500px) {
+    .pricing-grid { grid-template-columns: 1fr; }
+    .hero { padding: 60px 16px 40px; }
+    .section { padding: 40px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">Guia Prático</div>
+  <h1>Do zero ao seu<br><span>primeiro cliente</span></h1>
+  <p>Tudo que você precisa para vender sites para pequenos negócios locais — sem mimimi, sem teoria, só o que funciona.</p>
+  <div class="pills">
+    <div class="pill">🎯 <strong>Onde encontrar clientes</strong></div>
+    <div class="pill">💰 <strong>Como precificar</strong></div>
+    <div class="pill">🗣️ <strong>Scripts de abordagem</strong></div>
+    <div class="pill">🛡️ <strong>Rebater objeções</strong></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav-strip">
+  <div class="nav-item active" onclick="showSection('clientes')">01 · Clientes</div>
+  <div class="nav-item" onclick="showSection('preco')">02 · Precificação</div>
+  <div class="nav-item" onclick="showSection('abordagem')">03 · Abordagem</div>
+  <div class="nav-item" onclick="showSection('objecoes')">04 · Objeções</div>
+  <div class="nav-item" onclick="showSection('wpplink')">05 · Link → WhatsApp</div>
+  <div class="nav-item" onclick="showSection('linkbio')">06 · Linktree & Cia</div>
+  <div class="nav-item" onclick="showSection('rotina')">07 · Rotina</div>
+</div>
+
+<!-- SECTION 1: CLIENTES -->
+<div id="sec-clientes" class="section active">
+  <div class="section-label">Módulo 01</div>
+  <h2>Onde estão<br>seus clientes</h2>
+  <p class="intro">O erro mais comum de quem está começando é tentar vender para qualquer um. Pequenos negócios locais são o filão perfeito: eles precisam de presença online, não têm grana para agências grandes, e estão ao seu redor.</p>
+
+  <div class="tag">Os nichos mais quentes agora</div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon">🍕</div>
+      <div>
+        <h3>Restaurantes & Lanchonetes</h3>
+        <div class="sub">Alto volume, dor clara, ticket médio bom</div>
+      </div>
+    </div>
+    <p>A maioria só tem perfil no Instagram mal feito. Precisam de cardápio online, integração com iFood, ou pelo menos uma página que apareça no Google. Dor imediata: "quando alguém me pesquisa no Google, não aparece nada."</p>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon orange">💆</div>
+      <div>
+        <h3>Salões, Clínicas & Estéticas</h3>
+        <div class="sub">Agendamento online = economia de tempo real para eles</div>
+      </div>
+    </div>
+    <p>O maior problema deles é o agendamento por WhatsApp que vira caos. Um site simples com botão de agendamento já resolve — e você tem argumento de ROI claro.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon green">🔧</div>
+      <div>
+        <h3>Prestadores de serviço local</h3>
+        <div class="sub">Encanadores, eletricistas, pintores, maridos de aluguel</div>
+      </div>
+    </div>
+    <p>Eles vivem de indicação, mas um site os faz aparecer no Google quando alguém digita "encanador perto de mim". Um cliente novo já paga seu serviço com folga.</p>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-label">Como encontrar</div>
+  <h3 style="font-family:'Syne',sans-serif; font-size:20px; font-weight:700; margin-bottom:24px;">3 métodos que funcionam de verdade</h3>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h4>Google Maps Hunting</h4>
+        <p>Pesquise no Google Maps: "salão de beleza [seu bairro]", "restaurante [sua cidade]". Filtre por negócios sem site (aparecem sem link azul no perfil). Esses são seus leads quentes. Faça uma planilha com nome, telefone e ramo.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h4>Mapeamento de rua</h4>
+        <p>Ande pelos comércios da sua região. Olhe as vitrines, pegue cartão de visita. Se não tiver site impresso no cartão, é um lead. A abordagem presencial tem taxa de resposta muito mais alta que mensagem fria.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h4>Instagram sem link na bio</h4>
+        <p>Procure perfis de negócios locais no Instagram com muitos posts mas sem link de site na bio. Mande DM direta. São pessoas que já investem em presença digital mas ainda não deram o próximo passo.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="tip">
+    <span class="ti">💡</span>
+    <span><strong>Meta inicial:</strong> Liste 30 negócios locais sem site nos primeiros 3 dias. Não precisa falar com ninguém ainda — só mapear. Quantidade de leads é o que separa quem vende de quem fica tentando.</span>
+  </div>
+</div>
+
+<!-- SECTION 2: PREÇO -->
+<div id="sec-preco" class="section">
+  <div class="section-label">Módulo 02</div>
+  <h2>Como precificar<br>sem se desvalorizar</h2>
+  <p class="intro">A dúvida clássica: "quanto cobro?" O erro é cobrar pelo seu tempo. Você deve cobrar pelo valor gerado para o cliente. Um site que traz 2 clientes novos por mês para um salão já se paga no primeiro mês.</p>
+
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-tier">Básico</div>
+      <div class="price-value">R$800</div>
+      <div class="price-desc">a R$1.500</div>
+      <ul class="price-features">
+        <li>Landing page única</li>
+        <li>Formulário de contato</li>
+        <li>Botão do WhatsApp</li>
+        <li>Google Maps integrado</li>
+        <li>Mobile responsivo</li>
+      </ul>
+    </div>
+    <div class="price-card highlight">
+      <div class="price-tier">⭐ Recomendado</div>
+      <div class="price-value">R$1.800</div>
+      <div class="price-desc">a R$3.000</div>
+      <ul class="price-features">
+        <li>Site com 3-5 páginas</li>
+        <li>SEO local (aparece no Google)</li>
+        <li>Galeria / cardápio</li>
+        <li>Integração agendamento</li>
+        <li>Domínio + hospedagem 1 ano</li>
+      </ul>
+    </div>
+    <div class="price-card">
+      <div class="price-tier">Premium</div>
+      <div class="price-value">R$3.500</div>
+      <div class="price-desc">a R$6.000+</div>
+      <ul class="price-features">
+        <li>E-commerce básico</li>
+        <li>Blog / conteúdo</li>
+        <li>Integrações avançadas</li>
+        <li>Painel de gestão</li>
+        <li>Suporte 3 meses</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-label">Estratégia de recorrência</div>
+  <h3 style="font-family:'Syne',sans-serif; font-size:18px; font-weight:700; margin:0 0 16px;">Transforme projeto em mensalidade</h3>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon">🔄</div>
+      <div>
+        <h3>Plano de Manutenção Mensal</h3>
+        <div class="sub">R$150 a R$350/mês por cliente</div>
+      </div>
+    </div>
+    <p>Ofereça sempre um plano mensal após a entrega: hospedagem, atualizações de conteúdo, relatório de visitas e suporte. Com 10 clientes pagando R$200/mês, você tem R$2.000 recorrentes sem fazer nada novo.</p>
+  </div>
+
+  <div class="tip">
+    <span class="ti">🎯</span>
+    <span><strong>Dica de ancoragem:</strong> Sempre apresente 3 opções. A maioria das pessoas escolhe o meio. Use isso a seu favor colocando sua opção mais rentável no meio.</span>
+  </div>
+
+  <div class="warn">
+    <span>⚠️</span>
+    <span><strong>Nunca dê preço na primeira conversa.</strong> Entenda primeiro o negócio do cliente, o que ele já tem e o que ele quer. Assim você apresenta valor antes de falar de preço.</span>
+  </div>
+</div>
+
+<!-- SECTION 3: ABORDAGEM -->
+<div id="sec-abordagem" class="section">
+  <div class="section-label">Módulo 03</div>
+  <h2>Como abordar<br>sem parecer vendedor</h2>
+  <p class="intro">Medo de vender vem de uma confusão: você acha que vai incomodar. Mas se o negócio deles não tem site e você tem a solução, você está fazendo um favor. Mude esse frame primeiro.</p>
+
+  <div class="section-label" style="margin-top:32px;">Abordagem presencial</div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h4>Entre como cliente, não como vendedor</h4>
+        <p>Vá ao estabelecimento normalmente. Consuma algo se possível. Observe o ambiente. Anote mentalmente os pontos que você poderia resolver. Só depois aborde o responsável.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h4>Abra com uma observação, não com um pitch</h4>
+        <p>Não chegue falando "faço sites". Comece comentando algo sobre o negócio deles. Isso quebra a resistência e mostra que você prestou atenção.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h4>Faça a pergunta-gatilho</h4>
+        <p>A pergunta certa abre a venda sozinha. Deixa o cliente falar e você ouvir — aí você apresenta solução para o que ele mesmo disse.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="script-box">
+    "Oi, tudo bem! Eu vim aqui [tomar um café / me informar sobre] e aproveitei para perguntar — vocês têm algum site ou página onde as pessoas podem ver o cardápio e o horário de funcionamento? Porque fiz uma pesquisa rápida no Google aqui e não apareceu nada, o que é uma pena porque o lugar é ótimo."
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-label">Abordagem por WhatsApp / DM</div>
+
+  <div class="script-box">
+    "Oi [Nome]! Vi o perfil de vocês aqui no Instagram e achei muito bacana o trabalho que fazem. Fiz uma pesquisa no Google por [tipo do negócio] aqui em [cidade] e percebi que vocês não aparecem — o que significa que muita gente que está procurando o serviço de vocês não está achando.<br><br>
+    Sou especialista em criar sites para negócios locais aqui na região. Seria interessante pra você ter mais visibilidade no Google? Posso mostrar exatamente como funcionaria, sem compromisso."
+  </div>
+
+  <div class="tip">
+    <span class="ti">📊</span>
+    <span><strong>Expectativa realista:</strong> De cada 10 abordagens, 2-3 vão responder, 1 vai fechar. Isso é normal. O segredo é volume + consistência. Faça 10 abordagens por semana e em 1 mês você terá feito seu primeiro contrato.</span>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-label">Reunião de diagnóstico</div>
+  <h3 style="font-family:'Syne',sans-serif; font-size:18px; font-weight:700; margin:0 0 8px;">Perguntas que conduzem a venda</h3>
+  <p style="color:var(--muted); font-size:14px; margin-bottom:20px;">Faça essas perguntas antes de falar qualquer preço:</p>
+
+  <ul class="checklist" id="questions-list">
+    <li onclick="toggleCheck(this)"><div class="ck"></div><span>"Como seus clientes te encontram hoje?"</span></li>
+    <li onclick="toggleCheck(this)"><div class="ck"></div><span>"Você já perdeu clientes por não ter como te encontrar no Google?"</span></li>
+    <li onclick="toggleCheck(this)"><div class="ck"></div><span>"Se aparecer no topo do Google, quanto vale isso por mês pro seu negócio?"</span></li>
+    <li onclick="toggleCheck(this)"><div class="ck"></div><span>"O que te impede de já ter um site até hoje?"</span></li>
+    <li onclick="toggleCheck(this)"><div class="ck"></div><span>"Quem toma a decisão final sobre isso aqui na empresa?"</span></li>
+  </ul>
+</div>
+
+<!-- SECTION 4: OBJEÇÕES -->
+<div id="sec-objecoes" class="section">
+  <div class="section-label">Módulo 04</div>
+  <h2>Rebatendo objeções<br>com confiança</h2>
+  <p class="intro">Objeção não é rejeição — é pedido de mais informação. Quando o cliente diz "tá caro" ele está dizendo "ainda não entendi o valor". Sua missão é ajudar ele a entender.</p>
+
+  <div class="obj-block">
+    <div class="obj-q">💬 "Tá caro, não tenho orçamento agora."</div>
+    <div class="obj-a">
+      <strong>"Entendo. Posso te perguntar uma coisa? Se um novo cliente entrar por semana por causa do site, quanto isso representa em faturamento pra você por mês?"</strong><br><br>
+      Deixa ele calcular. Depois: "Então o site se paga em [X semanas]. A gente não tá falando de custo, tá falando de investimento que retorna."
+    </div>
+  </div>
+
+  <div class="obj-block">
+    <div class="obj-q">💬 "Já tenho o Instagram, não preciso de site."</div>
+    <div class="obj-a">
+      <strong>"O Instagram é ótimo pra quem já te segue. Mas quando alguém pesquisa no Google 'melhor [seu ramo] em [cidade]', o Instagram não aparece — o site aparece. São dois públicos diferentes."</strong><br><br>
+      Complemento: "Além disso, o Instagram pode te banir a qualquer hora. O site é seu, ninguém tira."
+    </div>
+  </div>
+
+  <div class="obj-block">
+    <div class="obj-q">💬 "Preciso pensar, vou ver com meu sócio."</div>
+    <div class="obj-a">
+      <strong>"Claro! Pra facilitar, posso mandar um resumo por escrito do que a gente discutiu pra você mostrar pra ele? Assim fica mais fácil de decidir juntos."</strong><br><br>
+      Isso mantém o contato aberto e você envia um material que faz a venda por você.
+    </div>
+  </div>
+
+  <div class="obj-block">
+    <div class="obj-q">💬 "Já tive um site antes e não adiantou nada."</div>
+    <div class="obj-a">
+      <strong>"Faz sentido essa desconfiança. Posso perguntar como era esse site? Era otimizado para aparecer no Google, ou só uma página bonita?"</strong><br><br>
+      Na maioria dos casos, o site anterior não tinha SEO local. Aí você explica a diferença do que você faz.
+    </div>
+  </div>
+
+  <div class="obj-block">
+    <div class="obj-q">💬 "Não tenho tempo pra me preocupar com isso."</div>
+    <div class="obj-a">
+      <strong>"Exatamente por isso que faz sentido me contratar. Você não vai precisar se preocupar com nada — eu cuido de tudo, desde a criação até colocar no ar. Você só aprova o visual."</strong>
+    </div>
+  </div>
+
+  <div class="tip">
+    <span class="ti">🧠</span>
+    <span><strong>Regra de ouro:</strong> Nunca discuta a objeção diretamente. Valide primeiro ("faz sentido", "entendo"), depois redirecione para o valor. Discutir cria resistência, validar cria abertura.</span>
+  </div>
+</div>
+
+<!-- SECTION 5: LINK PRO WHATSAPP -->
+<div id="sec-wpplink" class="section">
+  <div class="section-label">Módulo 05</div>
+  <h2>Bio que manda<br><span style="color:var(--accent)">direto pro WhatsApp</span></h2>
+  <p class="intro">Esse perfil já entendeu que precisa de um destino para o tráfego — mas jogou todo mundo num WhatsApp sem filtro. Isso tem nome: é poluição de lead. Cada mensagem que chega é uma pessoa que não sabe nada sobre o negócio e precisa ser atendida do zero. Você tem argumento de ouro aqui.</p>
+
+  <div class="tag">O problema deles (que eles nem sabem que têm)</div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon">📲</div>
+      <div>
+        <h3>O funil quebrado</h3>
+        <div class="sub">Instagram bonito → WhatsApp caótico</div>
+      </div>
+    </div>
+    <p>O cliente vê o feed, se interessa, clica no link da bio, cai direto no WhatsApp e manda "oi". Agora o dono do negócio precisa responder: qual serviço, qual valor, qual endereço, qual horário — tudo de novo, pra cada pessoa. O site resolve isso antes do "oi" aparecer.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon orange">🔥</div>
+      <div>
+        <h3>O impacto que se perde</h3>
+        <div class="sub">O feed aqueceu o lead — o WhatsApp esfria</div>
+      </div>
+    </div>
+    <p>Quando alguém está no feed e clica no link, está no pico do interesse. Se cai num WhatsApp vazio sem nenhuma informação, o encantamento some. Um site mantém esse momentum: portfólio, preços, depoimentos, botão de agendamento — tudo enquanto a pessoa ainda está empolgada.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon green">⏱️</div>
+      <div>
+        <h3>Tempo = dinheiro para eles</h3>
+        <div class="sub">Quantas horas por semana respondem a mesma coisa?</div>
+      </div>
+    </div>
+    <p>Faça essa pergunta na abordagem. A resposta normalmente é "várias". Um site com FAQ, cardápio, tabela de preços e formulário qualificado elimina 70% dessas mensagens repetidas — e as que chegam já vêm com contexto.</p>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-label">Como abordar esse perfil</div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h4>Identifique o sinal</h4>
+        <p>Bio do Instagram com link wa.me/ ou api.whatsapp.com direto, sem nenhuma página intermediária. Esse é seu gatilho de abordagem.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h4>Faça o teste você mesmo</h4>
+        <p>Clique no link, veja o que acontece. Se cair num WhatsApp em branco, você já tem seu argumento concreto: "Eu cliquei no link da sua bio e cai num WhatsApp sem nenhuma informação. Seus clientes fazem o mesmo."</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h4>Abra com o diagnóstico, não com o produto</h4>
+        <p>Não fale de site logo. Fale da dor: "Percebi que cada cliente que clica na sua bio chega no WhatsApp sem saber nada sobre você — isso deve gerar muito retrabalho." Deixa ele confirmar. Aí você apresenta a solução.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="script-box">
+    "Oi [Nome]! Sou fã do trabalho de vocês aqui no Instagram. Fiz o que qualquer cliente faria: cliquei no link da bio. Caí direto no WhatsApp, sem nenhuma info sobre serviços, preços ou horário. Imagina quantas pessoas fazem isso por dia e somem sem nem mandar mensagem porque não viram o que precisavam antes.<br><br>
+    Crio sites para negócios como o seu que transformam esse clique num cliente qualificado — sem você precisar responder as mesmas perguntas toda hora. Posso te mostrar como funcionaria pra vocês? Sem compromisso."
+  </div>
+
+  <div class="tip">
+    <span class="ti">💡</span>
+    <span><strong>Argumento de conversão:</strong> "Hoje você converte X% dos cliques em clientes. Com uma página de apresentação no meio do caminho, essa taxa sobe porque a pessoa chega no WhatsApp já convencida." Não precisa ter os números exatos — o raciocínio já convence.</span>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-label">O que entregar para esse perfil</div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon">🎯</div>
+      <div>
+        <h3>Landing Page de Qualificação</h3>
+        <div class="sub">Produto ideal para esse cliente — R$800 a R$1.800</div>
+      </div>
+    </div>
+    <p>Uma página única com: apresentação do negócio, serviços/cardápio, galeria de fotos, depoimentos, horários e um CTA para o WhatsApp — mas agora com contexto. O cliente chega no WhatsApp já sabendo o que quer. Venda mais fácil, menos trabalho para o dono.</p>
+  </div>
+
+  <div class="warn">
+    <span>⚠️</span>
+    <span><strong>Não critique o WhatsApp deles.</strong> Eles escolheram isso, e funcionou até certo ponto. Posicione o site como o próximo passo natural do crescimento, não como uma correção de erro.</span>
+  </div>
+</div>
+
+<!-- SECTION 6: LINKTREE E CIA -->
+<div id="sec-linkbio" class="section">
+  <div class="section-label">Módulo 06</div>
+  <h2>Linktree, Taplink<br><span style="color:var(--accent)">e o problema dos genéricos</span></h2>
+  <p class="intro">Esse perfil já deu um passo a mais — tem uma página de links. Mas está usando uma ferramenta que grita "fiz isso em 5 minutos", exibe a marca de outra empresa junto da deles, e às vezes até mostra propagandas de concorrentes. A dor aqui é de imagem e de profissionalismo.</p>
+
+  <div class="tag">Por que isso é um problema real</div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon">🎨</div>
+      <div>
+        <h3>Zero identidade visual</h3>
+        <div class="sub">Parece que qualquer um fez em 5 minutos (porque fez)</div>
+      </div>
+    </div>
+    <p>O feed do Instagram tem fotos cuidadosas, identidade de marca, cores consistentes. O cliente clica no link e cai numa página branca genérica com botões azuis padrão e logo do Linktree no rodapé. A experiência quebra. A confiança cai.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon orange">📢</div>
+      <div>
+        <h3>Propaganda de concorrente na página deles</h3>
+        <div class="sub">Planos gratuitos = anúncios de outros negócios</div>
+      </div>
+    </div>
+    <p>No plano grátis do Linktree e similares, a plataforma exibe anúncios na página do cliente. Literalmente: o cliente que você conquistou no feed pode ver propaganda de um concorrente antes de falar com você. Esse argumento fecha sozinho.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon green">🔍</div>
+      <div>
+        <h3>Invisível no Google</h3>
+        <div class="sub">Linktree não indexa para o negócio deles</div>
+      </div>
+    </div>
+    <p>Uma página no Linktree não aparece no Google quando alguém pesquisa pelo negócio. O domínio é do Linktree, não deles. Um site próprio com domínio deles aparece nas buscas, constrói autoridade e ainda pode aparecer no Google Meu Negócio.</p>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-label">Como abordar esse perfil</div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h4>Identifique a plataforma</h4>
+        <p>Clique no link da bio. Se aparecer linktr.ee, taplink.cc, bio.site, bit.ly ou similar, você tem seu lead. Anote qual plataforma usa — vai usar no script.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h4>Verifique se tem anúncios</h4>
+        <p>No plano grátis, role até o final da página de links. Se aparecer "Anúncio" ou um banner de outra empresa, você tem o argumento mais poderoso que existe. Print essa tela.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h4>Aborde com um elogio + observação</h4>
+        <p>Comece valorizando que eles já têm página de links — isso mostra que são antenados. Mas aponte o que está faltando: personalidade, profissionalismo e presença no Google.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="script-box">
+    "Oi [Nome]! Vi o perfil de vocês no Instagram — feed muito bem cuidado, dá pra ver o capricho no trabalho. Cliquei no link da bio e caí na página de links de vocês.<br><br>
+    Percebi duas coisas: a página não tem a identidade visual do negócio (fica bem diferente do feed), e vi que está aparecendo propaganda de outra empresa lá embaixo — o que significa que seus clientes podem estar vendo anúncio de concorrente antes de falar com vocês.<br><br>
+    Crio páginas personalizadas que substituem isso com a cara do seu negócio, sem propaganda de ninguém, e que ainda aparecem no Google. Posso te mostrar como ficaria? É rápido."
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-label">Comparativo visual — use na reunião</div>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:8px;">
+    <div class="card" style="border-color:rgba(248,113,113,0.3); background:rgba(248,113,113,0.04);">
+      <div style="font-family:'Syne',sans-serif; font-size:11px; font-weight:700; letter-spacing:0.1em; color:#f87171; margin-bottom:12px;">❌ LINKTREE GRÁTIS</div>
+      <ul style="list-style:none; font-size:13px; color:var(--muted);">
+        <li style="padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.05);">Layout genérico, sem personalidade</li>
+        <li style="padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.05);">Logo do Linktree visível</li>
+        <li style="padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.05);">Anúncios de terceiros na página</li>
+        <li style="padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.05);">Não aparece no Google</li>
+        <li style="padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.05);">Domínio é linktr.ee, não deles</li>
+        <li style="padding:6px 0;">Sem métricas reais de conversão</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:rgba(74,222,128,0.3); background:rgba(74,222,128,0.04);">
+      <div style="font-family:'Syne',sans-serif; font-size:11px; font-weight:700; letter-spacing:0.1em; color:#4ade80; margin-bottom:12px;">✅ SITE PRÓPRIO</div>
+      <ul style="list-style:none; font-size:13px; color:var(--muted);">
+        <li style="padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.05);">Visual com a identidade do negócio</li>
+        <li style="padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.05);">Domínio próprio (seunegoico.com.br)</li>
+        <li style="padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.05);">Zero propagandas de terceiros</li>
+        <li style="padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.05);">Aparece no Google</li>
+        <li style="padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.05);">Portfólio, preços, depoimentos</li>
+        <li style="padding:6px 0;">Métricas de visitantes e cliques</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="tip">
+    <span class="ti">🎯</span>
+    <span><strong>Argumento de upgrade:</strong> "Você já pagaria R$18/mês para remover os anúncios do Linktree Pro. Por R$150/mês você tem um site completo, com seu domínio, seu visual, e que ainda aparece no Google. A conta não fecha pagar o Linktree."</span>
+  </div>
+
+  <div class="tip">
+    <span class="ti">🏆</span>
+    <span><strong>Esse é o lead mais quente de todos.</strong> Ele já investiu em presença digital, já entende o valor, e já está pagando (ou considerando pagar) por uma solução. Você só precisa mostrar que a solução dele é inferior à que você oferece.</span>
+  </div>
+</div>
+
+<!-- SECTION 7: ROTINA -->
+<div id="sec-rotina" class="section">
+  <div class="section-label">Módulo 07</div>
+  <h2>Sua rotina de<br>vendas semanal</h2>
+  <p class="intro">Consistência bate talento toda vez. Uma rotina simples e executada toda semana é mais eficaz do que sprints irregulares. Aqui está o modelo mínimo viável para você começar.</p>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon">📅</div>
+      <div>
+        <h3>Segunda-feira — Prospecção</h3>
+        <div class="sub">1h a 2h por semana</div>
+      </div>
+    </div>
+    <p>Pesquise 10 novos negócios locais sem site. Google Maps, Instagram, rua. Monte ou atualize sua planilha de leads com nome, contato e canal de abordagem.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon orange">📲</div>
+      <div>
+        <h3>Terça e Quarta — Abordagem</h3>
+        <div class="sub">30min a 1h por dia</div>
+      </div>
+    </div>
+    <p>Envie mensagem ou ligue para 5 leads por dia. Use o script adaptado ao canal. Registre as respostas na planilha. Não espere retorno — só siga em frente.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon green">🤝</div>
+      <div>
+        <h3>Quinta — Reuniões e Follow-ups</h3>
+        <div class="sub">Conforme agenda</div>
+      </div>
+    </div>
+    <p>Faça reuniões de diagnóstico com quem respondeu. Envie follow-up para quem não respondeu ainda ("Oi, só passando pra ver se você teve chance de ver minha mensagem!"). Simples e eficaz.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon">📊</div>
+      <div>
+        <h3>Sexta — Revisão semanal</h3>
+        <div class="sub">30min</div>
+      </div>
+    </div>
+    <p>Conte: quantos abordou, quantos responderam, quantos reuniões, quantos fechamentos. Isso vira seu dado de conversão e você melhora a cada semana.</p>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-label">Primeiros 30 dias — Checklist</div>
+  <ul class="checklist" id="checklist-30">
+    <li onclick="toggleCheck(this)"><div class="ck"></div><span>Definir o nicho principal (ex: restaurantes)</span></li>
+    <li onclick="toggleCheck(this)"><div class="ck"></div><span>Criar portfólio com 1-3 projetos (pode ser fictício ou pró-bono)</span></li>
+    <li onclick="toggleCheck(this)"><div class="ck"></div><span>Montar planilha de leads com 30 negócios</span></li>
+    <li onclick="toggleCheck(this)"><div class="ck"></div><span>Fazer primeiras 10 abordagens</span></li>
+    <li onclick="toggleCheck(this)"><div class="ck"></div><span>Fazer primeira reunião de diagnóstico</span></li>
+    <li onclick="toggleCheck(this)"><div class="ck"></div><span>Enviar primeira proposta</span></li>
+    <li onclick="toggleCheck(this)"><div class="ck"></div><span>Fechar primeiro contrato (mesmo que pequeno)</span></li>
+  </ul>
+
+  <div class="tip">
+    <span class="ti">🚀</span>
+    <span><strong>O primeiro cliente é o mais difícil.</strong> Se necessário, faça o primeiro com desconto ou até gratuito em troca de depoimento e permissão para usar no portfólio. Com uma vitrine real, o segundo vem muito mais fácil.</span>
+  </div>
+
+  <div class="cta-block">
+    <h3>Agora é só executar. 🔥</h3>
+    <p>Você já tem o mapa. A única diferença entre quem vende e quem não vende é quem vai até o final da planilha de leads. Uma abordagem por dia muda sua vida em 30 dias.</p>
+  </div>
+</div>
+
+<script>
+  function showSection(name) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.getElementById('sec-' + name).classList.add('active');
+    event.target.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function toggleCheck(li) {
+    li.classList.toggle('done');
+    const ck = li.querySelector('.ck');
+    ck.textContent = li.classList.contains('done') ? '✓' : '';
+  }
+</script>
+</body>
+</html>
