@@ -3,7 +3,7 @@ Módulo de Autenticação OAuth 2.0 para Google Analytics 4.
 
 Gerencia o fluxo de login via navegador e o armazenamento/renovação
 do token de acesso (Refresh Token) para que o login seja feito
-apenas uma vez.
+apenas uma vez.s
 """
 import os
 import json
