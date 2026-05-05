@@ -17,9 +17,9 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 SCOPES = ['https://www.googleapis.com/auth/analytics.readonly']
 
 # Caminhos dos arquivos de credenciais
-# BASE_DIR = backend/
+# No Vercel, usamos /tmp para arquivos que precisam ser escritos
 BASE_DIR = Path(__file__).resolve().parent.parent.parent  # MyCRM/
-TOKEN_PATH = BASE_DIR / 'token.json'
+TOKEN_PATH = Path('/tmp/token.json') if os.environ.get('VERCEL') else BASE_DIR / 'token.json'
 
 # Buscar o client_secret automaticamente (aceita qualquer nome de arquivo client_secret_*.json)
 def _find_client_secret():
