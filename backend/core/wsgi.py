@@ -16,9 +16,13 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
 
 # Migrações automáticas no startup para Vercel
 try:
+    print(">>> Rodando migrações automáticas no startup...")
     call_command('migrate', '--noinput')
-except Exception:
-    pass
+    print(">>> Migrações concluídas com sucesso!")
+except Exception as e:
+    print(f">>> Erro nas migrações de startup: {e}")
+    import traceback
+    traceback.print_exc()
 
 application = get_wsgi_application()
 app = application

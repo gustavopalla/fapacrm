@@ -1,6 +1,7 @@
 from django.core.cache import cache
 import os
 import json
+from django.conf import settings
 
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
@@ -13,6 +14,32 @@ from . import ga4_auth, ga4_service
 class LeadViewSet(viewsets.ModelViewSet):
     queryset = Lead.objects.all().order_by('-ultima_interacao')
     serializer_class = LeadSerializer
+
+    def create(self, request, *args, **kwargs):
+        try:
+            return super().create(request, *args, **kwargs)
+        except Exception as e:
+            import traceback
+            error_details = traceback.format_exc()
+            print(f"Erro ao criar lead: {e}")
+            print(error_details)
+            return Response({
+                "error": str(e),
+                "details": error_details
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def list(self, request, *args, **kwargs):
+        try:
+            return super().list(request, *args, **kwargs)
+        except Exception as e:
+            import traceback
+            error_details = traceback.format_exc()
+            print(f"Erro ao listar leads: {e}")
+            print(error_details)
+            return Response({
+                "error": str(e),
+                "details": error_details
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     @action(detail=True, methods=['get'])
     def analytics_report(self, request, pk=None):
