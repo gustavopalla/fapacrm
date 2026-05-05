@@ -82,12 +82,24 @@
                   <option value="CONTATO">Primeiro Contato</option>
                   <option value="BRIEFING">Reunião/Briefing</option>
                   <option value="PROPOSTA">Proposta Enviada</option>
+                  <option value="AGUARDANDO">Aguardando Cliente</option>
                   <option value="FECHADO">Contrato Assinado</option>
                   <option value="PERDIDO">Perdido</option>
                 </select>
                 <div class="flex-1 px-4 text-xs lg:text-sm text-text-dim italic">
                   Última atualização: {{ formatDate(lead.ultima_interacao) }}
                 </div>
+              </div>
+
+              <!-- Motivo de Espera (Conditional) -->
+              <div v-if="editableLead.status === 'AGUARDANDO'" class="mt-4 animate-in fade-in slide-in-from-top-2 duration-300">
+                <label class="block text-xs font-bold text-primary uppercase tracking-widest mb-2 ml-1">Motivo da Espera</label>
+                <textarea 
+                  v-model="editableLead.motivo_espera"
+                  rows="2"
+                  class="w-full bg-background border border-primary/20 rounded-xl px-4 py-3 text-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-text-dim/50"
+                  placeholder="Explique por que este lead está em espera..."
+                ></textarea>
               </div>
             </section>
 

@@ -26,6 +26,17 @@
         </span>
       </div>
 
+      <!-- Motivo de Espera Badge on Card -->
+      <div v-if="lead.status === 'AGUARDANDO' && lead.motivo_espera" class="mb-4 p-2.5 bg-primary/10 border border-primary/20 rounded-xl">
+        <div class="flex items-center space-x-1.5 mb-1">
+          <ClockIcon class="w-3 h-3 text-primary" />
+          <span class="text-[9px] font-bold text-primary uppercase tracking-wider">Aguardando Cliente</span>
+        </div>
+        <p class="text-[10px] text-text-dim italic line-clamp-2 leading-relaxed">
+          "{{ lead.motivo_espera }}"
+        </p>
+      </div>
+
       <div class="flex items-center justify-between pt-4 border-t border-white/5">
         <div class="flex flex-col">
           <span class="text-[10px] text-text-dim uppercase tracking-wider font-semibold">Valor</span>
@@ -48,7 +59,7 @@
 </template>
 
 <script setup lang="ts">
-import { Globe as GlobeIcon, User as UserIcon, Check as CheckIcon } from 'lucide-vue-next'
+import { Globe as GlobeIcon, User as UserIcon, Check as CheckIcon, Clock as ClockIcon } from 'lucide-vue-next'
 
 defineProps<{
   lead: any

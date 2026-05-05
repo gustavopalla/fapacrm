@@ -14,6 +14,7 @@ export interface Lead {
   ultima_interacao: string
   proximo_contato: string | null
   notas: string
+  motivo_espera: string
   tem_site: boolean
   nota_performance: number | null
   tem_pixel: boolean

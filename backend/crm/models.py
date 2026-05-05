@@ -6,6 +6,7 @@ class Lead(models.Model):
         ('CONTATO', 'Primeiro Contato'),
         ('BRIEFING', 'Reunião/Briefing'),
         ('PROPOSTA', 'Proposta Enviada'),
+        ('AGUARDANDO', 'Aguardando Cliente'),
         ('FECHADO', 'Contrato Assinado'),
         ('PERDIDO', 'Perdido'),
     ]
@@ -27,6 +28,7 @@ class Lead(models.Model):
     ultima_interacao = models.DateTimeField(auto_now=True)
     proximo_contato = models.DateField(null=True, blank=True)
     notas = models.TextField(blank=True)
+    motivo_espera = models.TextField(blank=True, default='', help_text='Motivo pelo qual o lead está aguardando o cliente')
 
     # Diagnóstico Técnico
     tem_site = models.BooleanField(default=False)
