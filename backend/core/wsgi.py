@@ -1,28 +1,21 @@
-"""
-WSGI config for core project.
-
-It exposes the WSGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/6.0/howto/deployment/wsgi/
-"""
-
 import os
-
 from django.core.management import call_command
 from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
 
-# Migrações automáticas no startup para Vercel
-try:
-    print(">>> Rodando migrações automáticas no startup...")
-    call_command('migrate', '--noinput')
-    print(">>> Migrações concluídas com sucesso!")
-except Exception as e:
-    print(f">>> Erro nas migrações de startup: {e}")
-    import traceback
-    traceback.print_exc()
-
+# Inicializa o Django antes de qualquer outra coisa
 application = get_wsgi_application()
+
+# Roda migrações apenas se estiver na Vercel
+if os.environ.get('VERCEL') or os.environ.get('POSTGRES_URL'):
+    try:
+        print(">>> Rodando migrações na Vercel...")
+        call_command('migrate', '--noinput')
+        print(">>> Migrações concluídas!")
+    except Exception as e:
+        print(f">>> Erro nas migrações: {e}")
+        import traceback
+        traceback.print_exc()
+
 app = application
