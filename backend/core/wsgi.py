@@ -19,4 +19,15 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
 # 4. Inicializa o WSGI
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
+
+# 5. Roda as migrações (agora que o sys.path e o Django estão prontos)
+if os.environ.get('VERCEL'):
+    from django.core.management import call_command
+    try:
+        print(">>> Rodando migrações no startup...")
+        call_command('migrate', '--noinput')
+        print(">>> Migrações concluídas!")
+    except Exception as e:
+        print(f">>> Erro nas migrações: {e}")
+
 app = application
