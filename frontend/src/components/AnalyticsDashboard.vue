@@ -531,7 +531,7 @@ const openSocialModal = () => {
 const generateSocialReport = async (rawMetrics: string) => {
   isGeneratingSocialReport.value = true
   try {
-    const response = await fetch('http://127.0.0.1:8000/api/analytics/social_media_report/', {
+    const response = await fetch('/api/analytics/social_media_report/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ metrics: rawMetrics })
@@ -556,7 +556,7 @@ const generateWeeklyReport = async () => {
   isGeneratingReport.value = true
   
   try {
-    const response = await fetch(`http://127.0.0.1:8000/api/leads/${leadId}/weekly_report/`)
+    const response = await fetch(`/api/leads/${leadId}/weekly_report/`)
     if (!response.ok) throw new Error('Falha ao gerar relatório')
     
     const data = await response.json()
@@ -606,7 +606,7 @@ const sendChatMessage = async () => {
       topCities: topCities.value.map(c => `${c.city} (${c.users} users)`).join(', ')
     }
 
-    const response = await fetch(`http://127.0.0.1:8000/api/leads/${leadId}/analytics_chat/`, {
+    const response = await fetch(`/api/leads/${leadId}/analytics_chat/`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ question, dashboard_data: dashboardData })
@@ -648,7 +648,7 @@ const fetchAIInsight = async () => {
     })
     
     // Atualizar dados no backend na requisição
-    const response = await fetch(`http://127.0.0.1:8000/api/leads/${leadId}/analytics_insight/?${params}`)
+    const response = await fetch(`/api/leads/${leadId}/analytics_insight/?${params}`)
     const data = await response.json()
     if (data.insight) {
       aiInsight.value = data.insight
@@ -700,7 +700,7 @@ const applyFilters = async () => {
 const fetchRealData = async () => {
   isLoadingData.value = true
   try {
-    const response = await fetch(`http://127.0.0.1:8000/api/leads/${leadId}/analytics_report/?days=${filterDays.value}`)
+    const response = await fetch(`/api/leads/${leadId}/analytics_report/?days=${filterDays.value}`)
     if (!response.ok) throw new Error('Falha ao buscar dados reais')
     
     const data = await response.json()

@@ -75,7 +75,7 @@ const ga4Status = ref({ authenticated: false, has_client_secret: false })
 
 const checkStatus = async () => {
   try {
-    const response = await fetch('http://127.0.0.1:8000/api/analytics/status/')
+    const response = await fetch('/api/analytics/status/')
     ga4Status.value = await response.json()
   } catch (error) {
     console.error('Erro ao checar status GA4', error)
@@ -86,7 +86,7 @@ const handleAuthorize = async () => {
   try {
     // No backend, o authorize abre o navegador e retorna após o login (ou timeout)
     // Para uma experiência melhor, poderíamos ter uma aba de "Aguardando..."
-    window.open('http://127.0.0.1:8000/api/analytics/authorize/', '_blank')
+    window.open('/api/analytics/authorize/', '_blank')
     
     // Polling simples para atualizar o status
     const interval = setInterval(async () => {

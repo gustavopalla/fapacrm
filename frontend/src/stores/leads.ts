@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
 
-const API_URL = 'http://localhost:8000/api/leads/'
+const API_URL = '/api/leads/'
 
 export interface Lead {
   id: number
