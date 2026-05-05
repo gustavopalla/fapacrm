@@ -22,6 +22,7 @@ export interface Lead {
     valor_recorrente: number
     go_live: boolean
   }
+  ga4_property_id?: string | null
 }
 
 export const useLeadStore = defineStore('leads', {

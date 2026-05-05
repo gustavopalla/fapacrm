@@ -125,7 +125,7 @@
               <div style="background:#FAF7F0;padding:2rem;border-radius:1.5rem;border:1px solid #1A1A1A0D;position:relative;overflow:hidden;">
                 <span style="font-size:2rem;display:block;margin-bottom:1rem;">✨</span>
                 <p style="font-size:1.125rem;font-weight:700;color:#1A1A1A;margin-bottom:0.5rem;">Visão do Analista</p>
-                <p style="font-size:0.875rem;color:#1A1A1A99;font-style:italic;">"{{ gc(slide.visao_analista) || fallbackInsights[index] }}"</p>
+                <p style="font-size:0.875rem;color:#1A1A1A99;font-style:italic;">"{{ gc(slide.visao_analista) || fallbackInsights[Number(index)] }}"</p>
               </div>
             </div>
           </div>
@@ -133,7 +133,7 @@
           <!-- Footer -->
           <div style="padding:1.5rem 2rem;border-top:1px solid #1A1A1A0D;display:flex;justify-content:space-between;align-items:center;">
             <p style="font-size:0.625rem;font-weight:700;color:#1A1A1A4D;text-transform:uppercase;letter-spacing:0.15em;">{{ data.capa?.cliente }} — Relatório Semanal</p>
-            <span style="font-size:0.625rem;font-weight:700;color:#1A1A1A4D;">{{ String(index + 2).padStart(2, '0') }}/{{ String((data.slides?.length || 0) + 1).padStart(2, '0') }}</span>
+            <span style="font-size:0.625rem;font-weight:700;color:#1A1A1A4D;">{{ String(Number(index) + 2).padStart(2, '0') }}/{{ String((data.slides?.length || 0) + 1).padStart(2, '0') }}</span>
           </div>
         </div>
 

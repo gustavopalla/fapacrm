@@ -216,7 +216,6 @@ import {
   Calendar as CalendarIcon,
   MessageSquare as MessageSquareIcon,
   Copy as CopyIcon,
-  HelpCircle as HelpCircleIcon,
   ShieldCheck as ShieldCheckIcon,
   Trash2 as TrashIcon,
   Trophy as TrophyIcon,
@@ -298,12 +297,7 @@ const handleDelete = async () => {
   }
 }
 
-const diagnosisQuestions = [
-  "Como seus clientes te encontram hoje?",
-  "Você já perdeu clientes por não ter site?",
-  "O que te impede de já ter um site?",
-  "Quem toma a decisão final aqui?"
-]
+
 
 const getScript = (nichoId: string) => {
   const niche = settingsStore.niches.find(n => n.id === nichoId)

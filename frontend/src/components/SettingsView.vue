@@ -118,7 +118,8 @@ import {
   MessageSquare as MessageSquareIcon, 
   Trash as TrashIcon 
 } from 'lucide-vue-next'
-import { useSettingsStore, NicheConfig } from '../stores/settings'
+import { useSettingsStore } from '../stores/settings'
+import type { NicheConfig } from '../stores/settings'
 import { useToastStore } from '../stores/toast'
 
 const settingsStore = useSettingsStore()

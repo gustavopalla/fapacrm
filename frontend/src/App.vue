@@ -120,7 +120,6 @@ import { useRoute } from 'vue-router'
 import { 
   LayoutDashboard as LayoutDashboardIcon, 
   Users as UsersIcon, 
-  Briefcase as BriefcaseIcon,
   Settings as SettingsIcon,
   Search as SearchIcon,
   BookOpen as BookOpenIcon,

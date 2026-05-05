@@ -422,7 +422,6 @@ import { marked } from 'marked'
 import { useRoute } from 'vue-router'
 import { useLeadStore } from '../stores/leads'
 import { 
-  Briefcase as BriefcaseIcon, 
   Smartphone as SmartphoneIcon,
   Globe as GlobeIcon,
   Sparkles as SparklesIcon,
@@ -498,8 +497,8 @@ const metrics = ref({
   bounceRate: '0%'
 })
 
-const topPages = ref([])
-const topCities = ref([])
+const topPages = ref<{path: string, views: number, percent: number}[]>([])
+const topCities = ref<{city: string, users: number}[]>([])
 
 const aiInsight = ref('A Inteligência Artificial está analisando as métricas...')
 const isLoadingInsight = ref(false)
