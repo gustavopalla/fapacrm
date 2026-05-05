@@ -56,11 +56,19 @@ def get_credentials():
     if creds and creds.expired and creds.refresh_token:
         try:
             print("🔄 Renovando token de acesso...")
+            print(f"   Token expirou em: {creds.expiry}")
             creds.refresh(Request())
             _save_token(creds)
             print("✅ Token renovado com sucesso!")
+            print(f"   Novo vencimento: {creds.expiry}")
         except Exception as e:
+            import traceback
             print(f"❌ Erro ao renovar token: {e}")
+            print(f"   Detalhes: {traceback.format_exc()}")
+            print("   🗑️  Deletando token inválido para forçar re-autenticação...")
+            # Deletar token inválido para não ficar preso em loop
+            if TOKEN_PATH.exists():
+                TOKEN_PATH.unlink()
             creds = None
 
     # 3. Se não tem credenciais válidas, iniciar fluxo OAuth completo

@@ -353,10 +353,50 @@ class AnalyticsViewSet(viewsets.ViewSet):
 
     @action(detail=False, methods=['get'])
     def authorize(self, request):
-        creds = ga4_auth.get_credentials()
-        if creds:
-            return Response({"status": "success", "message": "Autenticado com sucesso!"})
-        return Response({"status": "error", "message": "Falha na autenticação."}, status=400)
+        """
+        Endpoint de autorização GA4.
+        
+        Fluxo:
+        1. Se token existe e está válido → retorna sucesso
+        2. Se token existe mas expirou → tenta renovar com refresh_token
+        3. Se não tem token → inicia fluxo OAuth via navegador local
+        """
+        import traceback
+        
+        try:
+            # Verificar se já está autenticado
+            if ga4_auth.is_authenticated():
+                # Tentar obter credenciais válidas (pode renovar automaticamente)
+                creds = ga4_auth.get_credentials()
+                if creds:
+                    return Response({
+                        "status": "success", 
+                        "message": "Já autenticado! Token válido."
+                    })
+            
+            # Se não está autenticado, tenta obter credenciais (pode abrir navegador)
+            creds = ga4_auth.get_credentials()
+            if creds:
+                return Response({
+                    "status": "success", 
+                    "message": "Autenticado com sucesso!"
+                })
+            
+            # Se falhou
+            return Response({
+                "status": "error", 
+                "message": "Falha na autenticação. Verifique o console do servidor para detalhes.",
+                "hint": "Execute no terminal: cd backend && source venv_mac/bin/activate && python -c \"from crm.ga4_auth import get_credentials; get_credentials()\""
+            }, status=400)
+            
+        except Exception as e:
+            error_msg = traceback.format_exc()
+            print(f"❌ Erro na autorização GA4: {error_msg}")
+            return Response({
+                "status": "error", 
+                "message": f"Erro durante autenticação: {str(e)}",
+                "details": error_msg
+            }, status=400)
 
     @action(detail=False, methods=['post'])
     def social_media_report(self, request):
