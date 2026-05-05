@@ -1,16 +1,16 @@
 <template>
-  <div class="max-w-5xl mx-auto space-y-12 pb-20">
+  <div class="max-w-5xl mx-auto space-y-8 lg:space-y-12 pb-24 lg:pb-20">
     <!-- Hero Section -->
-    <section class="text-center py-12 relative overflow-hidden rounded-3xl bg-surface/30 border border-white/5">
+    <section class="text-center py-8 lg:py-12 relative overflow-hidden rounded-2xl lg:rounded-3xl bg-surface/30 border border-white/5">
       <div class="absolute inset-0 bg-gradient-to-tr from-primary/10 to-secondary/5 pointer-events-none"></div>
-      <div class="relative z-10 px-6">
+      <div class="relative z-10 px-4 lg:px-6">
         <span class="inline-block px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold tracking-widest uppercase mb-6">
           Guia do Vendedor de Sites
         </span>
-        <h1 class="text-5xl font-bold mb-6 tracking-tight">
+        <h1 class="text-3xl lg:text-5xl font-bold mb-4 lg:mb-6 tracking-tight">
           Do zero ao seu <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">primeiro cliente</span>
         </h1>
-        <p class="text-text-muted text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+        <p class="text-text-muted text-base lg:text-lg max-w-2xl mx-auto mb-6 lg:mb-10 leading-relaxed">
           Tudo que você precisa para vender sites para pequenos negócios locais — sem mimimi, sem teoria, só o que funciona.
         </p>
         
@@ -23,7 +23,7 @@
     </section>
 
     <!-- Navigation Tabs -->
-    <div class="sticky top-24 z-30 bg-background/80 backdrop-blur-md border-b border-white/5 mb-8">
+    <div class="sticky top-16 lg:top-24 z-30 bg-background/80 backdrop-blur-md border-b border-white/5 mb-6 lg:mb-8 -mx-4 px-4 lg:mx-0 lg:px-0">
       <nav class="flex overflow-x-auto no-scrollbar py-2 gap-2">
         <button 
           v-for="section in sections" 
@@ -50,7 +50,7 @@
           </p>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
           <div v-for="nicho in nichos" :key="nicho.title" class="glass-card p-8 group">
             <div class="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
               {{ nicho.icon }}
@@ -61,7 +61,7 @@
           </div>
         </div>
 
-        <div class="space-y-6 bg-surface/50 p-8 rounded-3xl border border-white/5">
+        <div class="space-y-6 bg-surface/50 p-4 lg:p-8 rounded-2xl lg:rounded-3xl border border-white/5">
           <h3 class="text-2xl font-bold">3 métodos que funcionam de verdade</h3>
           <div class="space-y-8">
             <div v-for="(method, index) in findMethods" :key="method.title" class="flex gap-6">
@@ -86,7 +86,7 @@
           </p>
         </div>
 
-        <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto items-stretch">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 max-w-4xl mx-auto items-stretch">
           <div v-for="plan in pricingPlans" :key="plan.name" 
             class="glass-card p-8 flex flex-col relative overflow-hidden"
             :class="plan.highlight ? 'border-primary/50 bg-primary/5 ring-1 ring-primary/20' : ''">
@@ -107,7 +107,7 @@
           </div>
         </div>
 
-        <div class="bg-primary/10 border border-primary/20 rounded-3xl p-8 flex gap-6 items-center">
+        <div class="bg-primary/10 border border-primary/20 rounded-2xl lg:rounded-3xl p-4 lg:p-8 flex flex-col sm:flex-row gap-4 lg:gap-6 items-start sm:items-center">
           <div class="w-16 h-16 rounded-2xl bg-primary/20 flex items-center justify-center text-3xl">🔄</div>
           <div>
             <h3 class="text-xl font-bold mb-2">Estratégia de recorrência</h3>
@@ -133,7 +133,7 @@
             <div class="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center text-primary text-sm">P</div>
             Abordagem Presencial
           </h3>
-          <div class="grid md:grid-cols-3 gap-6">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
             <div v-for="(step, idx) in approachSteps" :key="idx" class="glass-card p-6 space-y-3">
               <div class="text-primary font-bold text-2xl opacity-50">{{ idx + 1 }}</div>
               <h4 class="font-bold">{{ step.title }}</h4>
@@ -145,7 +145,7 @@
             <div class="absolute -top-3 left-6 px-3 py-1 bg-primary text-white text-[10px] font-bold rounded-full tracking-widest uppercase z-10">
               SCRIPT PRESENCIAL
             </div>
-            <div class="bg-surface border-l-4 border-primary p-8 rounded-r-2xl italic text-lg leading-relaxed text-text-muted group-hover:text-white transition-colors">
+            <div class="bg-surface border-l-4 border-primary p-4 lg:p-8 rounded-r-2xl italic text-base lg:text-lg leading-relaxed text-text-muted group-hover:text-white transition-colors">
               "Oi, tudo bem! Eu vim aqui [tomar um café / me informar sobre] e aproveitei para perguntar — vocês têm algum site ou página onde as pessoas podem ver o cardápio e o horário de funcionamento? Porque fiz uma pesquisa rápida no Google aqui e não apareceu nada, o que é uma pena porque o lugar é ótimo."
             </div>
             <button @click="copyText('Oi, tudo bem! Eu vim aqui [tomar um café / me informar sobre] e aproveitei para perguntar — vocês têm algum site ou página onde as pessoas podem ver o cardápio e o horário de funcionamento? Porque fiz uma pesquisa rápida no Google aqui e não apareceu nada, o que é uma pena porque o lugar é ótimo.')" 
@@ -164,7 +164,7 @@
             <div class="absolute -top-3 left-6 px-3 py-1 bg-secondary text-white text-[10px] font-bold rounded-full tracking-widest uppercase z-10">
               SCRIPT DIGITAL
             </div>
-            <div class="bg-surface border-l-4 border-secondary p-8 rounded-r-2xl italic text-lg leading-relaxed text-text-muted group-hover:text-white transition-colors">
+            <div class="bg-surface border-l-4 border-secondary p-4 lg:p-8 rounded-r-2xl italic text-base lg:text-lg leading-relaxed text-text-muted group-hover:text-white transition-colors">
               "Oi [Nome]! Vi o perfil de vocês aqui no Instagram e achei muito bacana o trabalho que fazem. Fiz uma pesquisa no Google por [tipo do negócio] aqui em [cidade] e percebi que vocês não aparecem — o que significa que muita gente que está procurando o serviço de vocês não está achando.<br><br>
               Sou especialista em criar sites para negócios locais aqui na região. Seria interessante pra você ter mais visibilidade no Google? Posso mostrar exatamente como funcionaria, sem compromisso."
             </div>
@@ -207,7 +207,7 @@
           </p>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
           <div v-for="day in routine" :key="day.label" class="glass-card p-6 space-y-4">
             <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-2xl">{{ day.icon }}</div>
             <h4 class="font-bold">{{ day.label }}</h4>

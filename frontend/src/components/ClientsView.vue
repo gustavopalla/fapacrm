@@ -1,43 +1,45 @@
 <template>
-  <div class="space-y-8 pb-20">
-    <header class="flex justify-between items-end">
-      <div>
-        <h2 class="text-3xl font-heading font-bold text-white">Base de Clientes</h2>
-        <p class="text-text-muted mt-2">Visualize e gerencie todos os negócios mapeados no seu ecossistema</p>
+  <div class="space-y-6 lg:space-y-8 pb-24 lg:pb-20">
+    <header class="space-y-4">
+      <div class="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4">
+        <div>
+          <h2 class="text-2xl lg:text-3xl font-heading font-bold text-white">Base de Clientes</h2>
+          <p class="text-text-muted mt-1 lg:mt-2 text-sm lg:text-base">Visualize e gerencie todos os negócios mapeados</p>
+        </div>
+        
+        <button @click="exportCSV" class="self-end p-2.5 bg-white/5 hover:bg-white/10 rounded-xl border border-white/5 text-text-muted hover:text-white transition-all" title="Exportar CSV">
+          <DownloadIcon class="w-5 h-5" />
+        </button>
       </div>
       
-      <div class="flex items-center space-x-4">
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
         <!-- Search Bar -->
-        <div class="relative group">
+        <div class="relative group flex-1">
           <SearchIcon class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-dim group-focus-within:text-primary transition-colors" />
           <input 
             v-model="searchQuery"
             type="text" 
             placeholder="Pesquisar empresa ou cliente..." 
-            class="bg-surface/50 border border-white/5 rounded-xl pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 w-80 transition-all"
+            class="bg-surface/50 border border-white/5 rounded-xl pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 w-full transition-all"
           />
         </div>
 
         <!-- Niche Filter -->
         <select 
           v-model="filterNicho"
-          class="bg-surface/50 border border-white/5 rounded-xl px-4 py-2.5 text-sm text-text-muted focus:outline-none focus:border-primary/50 transition-all appearance-none cursor-pointer"
+          class="bg-surface/50 border border-white/5 rounded-xl px-4 py-2.5 text-sm text-text-muted focus:outline-none focus:border-primary/50 transition-all appearance-none cursor-pointer sm:w-auto"
         >
           <option value="ALL">Todos os Nichos</option>
           <option v-for="niche in settingsStore.niches" :key="niche.id" :value="niche.id">
             {{ niche.label }}
           </option>
         </select>
-
-        <button @click="exportCSV" class="p-2.5 bg-white/5 hover:bg-white/10 rounded-xl border border-white/5 text-text-muted hover:text-white transition-all" title="Exportar CSV">
-          <DownloadIcon class="w-5 h-5" />
-        </button>
       </div>
     </header>
 
     <!-- Stats Overview -->
-    <div class="grid grid-cols-4 gap-6">
-      <div v-for="stat in stats" :key="stat.label" class="glass-card p-6">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-6">
+      <div v-for="stat in stats" :key="stat.label" class="glass-card p-4 lg:p-6">
         <span class="text-[10px] font-bold text-text-dim uppercase tracking-widest block mb-2">{{ stat.label }}</span>
         <div class="flex items-baseline space-x-2">
           <span class="text-2xl font-bold text-white">{{ stat.value }}</span>
@@ -47,7 +49,8 @@
     </div>
 
     <!-- Clients Table -->
-    <div class="glass-card overflow-hidden">
+    <!-- Desktop Table -->
+    <div class="glass-card overflow-hidden hidden lg:block">
       <table class="w-full text-left border-collapse">
         <thead>
           <tr class="bg-white/5 text-[10px] font-bold text-text-dim uppercase tracking-widest border-b border-white/5">
@@ -110,11 +113,55 @@
       </div>
     </div>
 
+    <!-- Mobile Cards -->
+    <div class="lg:hidden space-y-3">
+      <div v-for="lead in filteredLeads" :key="lead.id" class="glass-card p-4 cursor-pointer active:scale-[0.98] transition-transform" @click="selectedLead = lead">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center space-x-3 min-w-0">
+            <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-lg font-bold shrink-0">
+              {{ lead.nome_empresa.charAt(0) }}
+            </div>
+            <div class="min-w-0">
+              <div class="font-bold text-white truncate">{{ lead.nome_empresa }}</div>
+              <div class="text-xs text-text-muted truncate">{{ lead.nome_cliente }}</div>
+            </div>
+          </div>
+          <span 
+            class="px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider border shrink-0 ml-2"
+            :class="statusColors[lead.status] || 'bg-white/5 border-white/10 text-text-muted'"
+          >
+            {{ lead.status }}
+          </span>
+        </div>
+        <div class="flex items-center justify-between pt-3 border-t border-white/5">
+          <div class="flex items-center gap-2">
+            <span class="text-[10px] text-text-dim uppercase font-bold">{{ lead.nicho }}</span>
+          </div>
+          <span class="text-sm font-bold text-primary">{{ formatCurrency(lead.valor_estimado) }}</span>
+        </div>
+        <div class="flex items-center justify-end gap-2 mt-3">
+          <a :href="`https://wa.me/?text=Olá ${lead.nome_cliente}, tudo bem?`" target="_blank" class="p-2 hover:bg-green-500/10 rounded-lg text-text-dim hover:text-green-400 transition-all" @click.stop>
+            <MessageCircleIcon class="w-4 h-4" />
+          </a>
+          <button @click.stop="handleDeleteRequest(lead)" class="p-2 hover:bg-red-500/10 rounded-lg text-text-dim hover:text-red-400 transition-all">
+            <TrashIcon class="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+
+      <!-- Empty State Mobile -->
+      <div v-if="filteredLeads.length === 0" class="p-12 text-center">
+        <div class="text-4xl mb-4">🔍</div>
+        <h3 class="text-lg font-bold text-white">Nenhum cliente encontrado</h3>
+        <p class="text-text-muted text-sm max-w-sm mx-auto mt-2">Tente ajustar seus filtros.</p>
+      </div>
+    </div>
+
     <!-- Reusing LeadDrawer for details -->
     <LeadDrawer :lead="selectedLead" @close="selectedLead = null" />
 
     <!-- Notifications Toast -->
-    <div class="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
+    <div class="fixed bottom-20 lg:bottom-6 right-4 lg:right-6 z-50 flex flex-col gap-3">
       <div 
         v-for="notification in notifications" 
         :key="notification.id"

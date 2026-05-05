@@ -1,15 +1,15 @@
 <template>
-  <div class="h-full flex flex-col space-y-6">
-    <div class="flex items-center justify-between">
+  <div class="h-full flex flex-col space-y-4 lg:space-y-6 pb-24 lg:pb-10">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
       <div>
         <h1 class="text-2xl font-heading font-bold text-white">Analytics</h1>
         <p class="text-sm text-text-muted mt-1">Selecione um cliente para visualizar o painel de métricas.</p>
       </div>
       
       <!-- Global Status -->
-      <div class="flex items-center gap-3 bg-surface/40 backdrop-blur-md px-4 py-2 rounded-xl border border-white/5">
+      <div class="flex items-center gap-2 lg:gap-3 bg-surface/40 backdrop-blur-md px-3 lg:px-4 py-2 rounded-xl border border-white/5 overflow-x-auto">
         <div :class="ga4Status.authenticated ? 'bg-green-500' : 'bg-red-500'" class="w-2 h-2 rounded-full shadow-glow"></div>
-        <span class="text-xs font-bold text-white uppercase tracking-widest">
+        <span class="text-[10px] lg:text-xs font-bold text-white uppercase tracking-widest whitespace-nowrap">
           {{ ga4Status.authenticated ? 'Google Analytics Conectado' : 'Google Analytics Desconectado' }}
         </span>
         <button 
@@ -26,7 +26,7 @@
       <div class="animate-spin w-8 h-8 border-2 border-primary border-t-transparent rounded-full"></div>
     </div>
 
-    <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6">
       <div 
         v-for="lead in leadsStore.leads" 
         :key="lead.id"

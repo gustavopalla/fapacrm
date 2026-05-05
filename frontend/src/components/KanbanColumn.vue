@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-shrink-0 w-80 flex flex-col bg-surface/30 backdrop-blur-md rounded-2xl border border-white/5 shadow-xl h-full">
+  <div class="flex-shrink-0 w-[75vw] sm:w-72 lg:w-80 flex flex-col bg-surface/30 backdrop-blur-md rounded-2xl border border-white/5 shadow-xl h-full">
     <!-- Header da Coluna -->
     <div class="p-5 flex items-center justify-between border-b border-white/5">
       <div class="flex items-center space-x-2.5">

@@ -1,13 +1,13 @@
 <template>
-  <div v-if="show && data" class="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
+  <div v-if="show && data" class="fixed inset-0 z-[100] flex items-center justify-center p-0 sm:p-4 lg:p-6">
     <!-- Overlay -->
     <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" @click="$emit('close')"></div>
     
     <!-- Modal -->
-    <div class="relative bg-[#FAF7F0] w-full max-w-5xl max-h-[90vh] rounded-3xl shadow-2xl overflow-hidden flex flex-col animate-in">
+    <div class="relative bg-[#FAF7F0] w-full h-full sm:h-auto sm:max-w-5xl sm:max-h-[90vh] sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col animate-in">
       
       <!-- Header -->
-      <div class="flex items-center justify-between p-6 border-b border-[#1A1A1A]/10 bg-white shrink-0">
+      <div class="flex items-center justify-between p-4 lg:p-6 border-b border-[#1A1A1A]/10 bg-white shrink-0">
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 bg-[#4CC23A] rounded-xl flex items-center justify-center">
             <FileTextIcon class="w-6 h-6 text-white" />
@@ -109,7 +109,7 @@
             </div>
             
             <!-- Conteúdo + Visão -->
-            <div style="display:grid;grid-template-columns:7fr 5fr;gap:2rem;align-items:start;">
+            <div style="display:grid;gap:2rem;align-items:start;" class="grid-cols-1 sm:grid-template-cols-report">
               <div>
                 <div style="font-size:0.9375rem;color:#1A1A1ACC;font-weight:500;line-height:1.7;">
                   {{ gc(slide.conteudo) }}
@@ -240,16 +240,33 @@ const fallbackInsights = [
   border: 1px solid #1A1A1A0D;
 }
 .mini-val {
-  font-size: 1.125rem;
+  font-size: 1rem;
   font-weight: 900;
   color: #1A1A1A;
 }
 .mini-lbl {
-  font-size: 0.5625rem;
+  font-size: 0.5rem;
   font-weight: 700;
   color: #1A1A1A59;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   margin-top: 0.125rem;
+}
+
+/* Responsive report grid */
+.grid-cols-1 {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .sm\:grid-template-cols-report {
+    grid-template-columns: 7fr 5fr;
+  }
+  .mini-val {
+    font-size: 1.125rem;
+  }
+  .mini-lbl {
+    font-size: 0.5625rem;
+  }
 }
 </style>

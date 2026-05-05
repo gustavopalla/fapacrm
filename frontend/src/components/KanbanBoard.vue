@@ -1,5 +1,5 @@
 <template>
-  <div class="flex space-x-6 h-full pb-4">
+  <div class="flex space-x-4 lg:space-x-6 h-full pb-20 lg:pb-4 overflow-x-auto snap-x snap-mandatory lg:snap-none scrollbar-hide -mx-4 px-4 lg:mx-0 lg:px-0">
     <KanbanColumn 
       v-for="column in columns" 
       :key="column.id"
@@ -8,6 +8,7 @@
       :leads="leadsByStatus[column.id] || []"
       @move="handleMove"
       @select="selectedLead = $event"
+      class="snap-start"
     />
     
     <LeadDrawer :lead="selectedLead" @close="selectedLead = null" />

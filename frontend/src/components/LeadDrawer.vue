@@ -7,25 +7,25 @@
 
     <!-- Modal Card -->
     <Transition name="zoom">
-      <div v-if="lead" class="fixed inset-0 z-[90] flex items-center justify-center p-4 pointer-events-none">
-        <div class="w-full max-w-2xl bg-surface/95 backdrop-blur-xl shadow-2xl rounded-[2.5rem] flex flex-col border border-white/10 overflow-hidden pointer-events-auto max-h-[90vh]">
+      <div v-if="lead" class="fixed inset-0 z-[90] flex items-center justify-center p-0 lg:p-4 pointer-events-none">
+        <div class="w-full h-full lg:h-auto lg:max-w-2xl bg-surface/95 backdrop-blur-xl shadow-2xl rounded-none lg:rounded-[2.5rem] flex flex-col border-0 lg:border border-white/10 overflow-hidden pointer-events-auto lg:max-h-[90vh]">
           
           <!-- Header (Editable Info) -->
-          <header class="p-8 border-b border-white/5 flex justify-between items-start bg-gradient-to-br from-primary/10 to-transparent">
-            <div class="flex items-start space-x-5 flex-1">
-              <div class="w-16 h-16 bg-gradient-to-tr from-primary to-secondary rounded-2xl flex items-center justify-center shadow-glow shrink-0 mt-1">
-                <span class="text-3xl font-heading font-bold text-white">{{ editableLead.nome_empresa?.charAt(0) || '?' }}</span>
+          <header class="p-4 lg:p-8 border-b border-white/5 flex justify-between items-start bg-gradient-to-br from-primary/10 to-transparent">
+            <div class="flex items-start space-x-3 lg:space-x-5 flex-1 min-w-0">
+              <div class="w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-tr from-primary to-secondary rounded-2xl flex items-center justify-center shadow-glow shrink-0 mt-1">
+                <span class="text-xl lg:text-3xl font-heading font-bold text-white">{{ editableLead.nome_empresa?.charAt(0) || '?' }}</span>
               </div>
               
               <div class="space-y-3 flex-1">
                 <!-- Empresa -->
                 <input 
                   v-model="editableLead.nome_empresa"
-                  class="bg-transparent text-3xl font-heading font-bold text-white leading-tight focus:outline-none border-b border-transparent focus:border-primary/30 w-full"
+                  class="bg-transparent text-xl lg:text-3xl font-heading font-bold text-white leading-tight focus:outline-none border-b border-transparent focus:border-primary/30 w-full"
                   placeholder="Nome da Empresa"
                 />
                 
-                <div class="flex flex-wrap gap-4 items-center">
+                <div class="flex flex-wrap gap-2 lg:gap-4 items-center">
                   <!-- Cliente -->
                   <div class="flex items-center text-base text-text-muted group">
                     <UserIcon class="w-4 h-4 mr-2 group-focus-within:text-primary transition-colors" />
@@ -69,11 +69,11 @@
             </div>
           </header>
 
-          <div class="flex-1 overflow-y-auto p-10 space-y-12 scrollbar-hide">
+          <div class="flex-1 overflow-y-auto p-4 lg:p-10 space-y-8 lg:space-y-12 scrollbar-hide pb-20 lg:pb-4">
             <!-- Pipeline Status -->
             <section>
               <h4 class="text-sm font-semibold text-text-dim uppercase tracking-widest mb-4">Pipeline Status</h4>
-              <div class="flex items-center p-1.5 bg-background rounded-2xl border border-white/5">
+              <div class="flex flex-col sm:flex-row items-stretch sm:items-center p-1.5 bg-background rounded-2xl border border-white/5 gap-2 sm:gap-0">
                 <select 
                   v-model="editableLead.status"
                   class="bg-primary/10 text-primary text-base font-bold border border-primary/20 px-6 py-3 rounded-xl focus:outline-none appearance-none cursor-pointer"
@@ -85,15 +85,15 @@
                   <option value="FECHADO">Contrato Assinado</option>
                   <option value="PERDIDO">Perdido</option>
                 </select>
-                <div class="flex-1 px-4 text-sm text-text-dim italic">
+                <div class="flex-1 px-4 text-xs lg:text-sm text-text-dim italic">
                   Última atualização: {{ formatDate(lead.ultima_interacao) }}
                 </div>
               </div>
             </section>
 
             <!-- Metrics (With Editable Valor) -->
-            <section class="grid grid-cols-2 gap-6">
-              <div class="p-6 rounded-3xl border border-white/5 bg-background/50 group hover:border-primary/30 transition-colors">
+            <section class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+              <div class="p-4 lg:p-6 rounded-3xl border border-white/5 bg-background/50 group hover:border-primary/30 transition-colors">
                 <label class="text-xs font-bold text-text-dim uppercase tracking-widest block mb-3">Presença Web</label>
                 <div class="flex items-center space-x-3">
                   <div :class="editableLead.tem_site ? 'bg-green-500/10 text-green-400 border-green-500/20' : 'bg-red-500/10 text-red-400 border-red-500/20'" class="p-2.5 rounded-xl border cursor-pointer" @click="editableLead.tem_site = !editableLead.tem_site">
@@ -102,7 +102,7 @@
                   <span class="text-xl font-bold text-white">{{ editableLead.tem_site ? 'Tem Site' : 'Sem Site' }}</span>
                 </div>
               </div>
-              <div class="p-6 rounded-3xl border border-white/5 bg-background/50 group hover:border-primary/30 transition-colors">
+              <div class="p-4 lg:p-6 rounded-3xl border border-white/5 bg-background/50 group hover:border-primary/30 transition-colors">
                 <label class="text-xs font-bold text-text-dim uppercase tracking-widest block mb-3">Valor Estimado (R$)</label>
                 <div class="flex items-center space-x-3">
                   <div class="p-2.5 rounded-xl border border-primary/20 bg-primary/10 text-primary">
@@ -123,8 +123,8 @@
                 <ShieldCheckIcon class="w-4 h-4" />
                 Diagnóstico Técnico
               </h4>
-              <div class="grid grid-cols-2 gap-6">
-                <div class="glass-card p-6 space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+                <div class="glass-card p-4 lg:p-6 space-y-4">
                   <div class="flex items-center justify-between">
                     <label class="text-xs font-bold text-text-dim uppercase">Performance (0-100)</label>
                     <input type="number" v-model="editableLead.nota_performance" placeholder="90" class="w-full bg-background border border-white/5 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-primary/30" />
@@ -137,7 +137,7 @@
                     <input type="text" v-model="editableLead.ga4_property_id" placeholder="Ex: 534388123" class="w-full bg-background border border-white/5 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-primary/30" />
                   </div>
                 </div>
-                <div class="glass-card p-6 space-y-4">
+                <div class="glass-card p-4 lg:p-6 space-y-4">
                   <div class="flex items-center justify-between">
                     <label class="text-xs font-bold text-text-dim uppercase">Tem Pixel?</label>
                     <input type="checkbox" v-model="editableLead.tem_pixel" class="w-5 h-5 accent-primary" />
@@ -157,7 +157,7 @@
                 <textarea v-model="editableLead.notas" rows="5" class="w-full bg-background/50 border border-white/5 rounded-2xl p-6 text-white focus:outline-none focus:border-primary/30 focus:ring-1 focus:ring-primary/10 transition-all placeholder:text-text-dim text-base" placeholder="Descreva os pontos chave desta prospecção..."></textarea>
               </div>
               
-              <div class="flex items-center justify-between p-6 rounded-2xl border border-white/5 bg-background/30">
+              <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between p-4 lg:p-6 rounded-2xl border border-white/5 bg-background/30 gap-3 sm:gap-0">
                 <div class="flex items-center space-x-3">
                   <CalendarIcon class="w-5 h-5 text-text-muted" />
                   <span class="text-base text-text-muted font-medium">Data de Follow-up</span>
@@ -190,7 +190,7 @@
             </section>
           </div>
 
-          <footer class="p-8 border-t border-white/5 bg-background/30 flex space-x-4">
+          <footer class="p-4 lg:p-8 border-t border-white/5 bg-background/30 flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
             <button @click="handleSave" :disabled="saving" class="flex-1 bg-white/5 hover:bg-white/10 text-white py-4 rounded-2xl font-bold transition-all border border-white/5 flex items-center justify-center gap-2">
               <span v-if="saving" class="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin"></span>
               {{ saving ? 'Salvando...' : 'Salvar Alterações' }}

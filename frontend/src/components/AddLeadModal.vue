@@ -1,7 +1,7 @@
 <template>
-  <div v-if="show" class="fixed inset-0 bg-background/80 backdrop-blur-md z-[60] flex items-center justify-center p-4">
-    <div class="bg-surface/90 backdrop-blur-2xl rounded-3xl border border-white/10 shadow-2xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in duration-300">
-      <header class="p-8 border-b border-white/5 flex justify-between items-center bg-gradient-to-r from-primary/10 to-transparent">
+  <div v-if="show" class="fixed inset-0 bg-background/80 backdrop-blur-md z-[60] flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="bg-surface/90 backdrop-blur-2xl rounded-t-3xl sm:rounded-3xl border border-white/10 shadow-2xl w-full sm:max-w-md overflow-hidden animate-in fade-in zoom-in duration-300 max-h-[95vh] sm:max-h-[90vh] flex flex-col">
+      <header class="p-4 lg:p-8 border-b border-white/5 flex justify-between items-center bg-gradient-to-r from-primary/10 to-transparent shrink-0">
         <div>
           <h3 class="text-xl font-heading font-bold text-white">Novo Lead</h3>
           <p class="text-xs text-text-muted mt-1">Adicione uma nova oportunidade ao funil</p>
@@ -11,7 +11,7 @@
         </button>
       </header>
       
-      <form @submit.prevent="handleSubmit" class="p-8 space-y-6">
+      <form @submit.prevent="handleSubmit" class="p-4 lg:p-8 space-y-4 lg:space-y-6 overflow-y-auto flex-1">
         <div class="space-y-2">
           <label class="block text-sm font-medium text-text-muted ml-1">Empresa</label>
           <input 
@@ -56,7 +56,7 @@
           </select>
         </div>
 
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div class="space-y-2">
             <label class="block text-sm font-medium text-text-muted ml-1">Valor Est. (R$)</label>
             <input 

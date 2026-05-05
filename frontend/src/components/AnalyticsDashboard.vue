@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full flex flex-col space-y-6 text-white pb-10">
+  <div class="h-full flex flex-col space-y-4 lg:space-y-6 text-white pb-24 lg:pb-10">
     
     <!-- Modais -->
     <WeeklyReportModal 
@@ -22,7 +22,7 @@
     />
 
     <!-- Header Interno -->
-    <div v-if="!isPublic" class="flex items-center justify-between">
+    <div v-if="!isPublic" class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
       <div>
         <div class="flex items-center space-x-2 text-sm text-text-muted mb-2">
           <router-link to="/analytics" class="hover:text-white transition-colors">Analytics</router-link>
@@ -32,15 +32,15 @@
         <h1 class="text-2xl font-heading font-bold text-white">Dashboard de Desempenho</h1>
       </div>
       
-      <div class="flex items-center space-x-4">
+      <div class="flex flex-wrap items-center gap-2 lg:gap-4">
         <!-- Filtros -->
-        <select v-model="filterDevice" @change="applyFilters" class="bg-surface/50 border border-white/5 px-4 py-2.5 rounded-xl text-sm font-medium outline-none focus:border-primary/50 transition-colors">
+        <select v-model="filterDevice" @change="applyFilters" class="bg-surface/50 border border-white/5 px-3 lg:px-4 py-2 lg:py-2.5 rounded-xl text-sm font-medium outline-none focus:border-primary/50 transition-colors flex-1 sm:flex-none">
           <option value="all">Todos Dispositivos</option>
           <option value="mobile">Mobile (Celular)</option>
           <option value="desktop">Desktop</option>
         </select>
         
-        <select v-model="filterDays" @change="applyFilters" class="bg-surface/50 border border-white/5 px-4 py-2.5 rounded-xl text-sm font-medium outline-none focus:border-primary/50 transition-colors">
+        <select v-model="filterDays" @change="applyFilters" class="bg-surface/50 border border-white/5 px-3 lg:px-4 py-2 lg:py-2.5 rounded-xl text-sm font-medium outline-none focus:border-primary/50 transition-colors flex-1 sm:flex-none">
           <option value="7">Últimos 7 dias</option>
           <option value="30">Últimos 30 dias</option>
           <option value="365">Este Ano</option>
@@ -58,25 +58,27 @@
         <button 
           @click="generateWeeklyReport" 
           :disabled="isGeneratingReport"
-          class="flex items-center gap-2 bg-[#4CC23A] hover:bg-[#3A9E2C] text-white px-5 py-2.5 rounded-xl font-bold transition-all shadow-lg hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50"
+          class="flex items-center gap-2 bg-[#4CC23A] hover:bg-[#3A9E2C] text-white px-3 lg:px-5 py-2 lg:py-2.5 rounded-xl font-bold transition-all shadow-lg hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 text-sm"
         >
           <FileTextIcon v-if="!isGeneratingReport" class="w-4 h-4" />
           <RefreshCwIcon v-else class="w-4 h-4 animate-spin" />
-          <span>Gerar Relatório</span>
+          <span class="hidden sm:inline">Gerar Relatório</span>
+          <span class="sm:hidden">Relatório</span>
         </button>
 
         <button 
           @click="openSocialModal"
-          class="flex items-center gap-2 bg-gradient-to-r from-[#f09433] via-[#e6683c] to-[#bc1888] hover:brightness-110 text-white px-5 py-2.5 rounded-xl font-bold transition-all shadow-lg hover:scale-[1.02] active:scale-[0.98]"
+          class="flex items-center gap-2 bg-gradient-to-r from-[#f09433] via-[#e6683c] to-[#bc1888] hover:brightness-110 text-white px-3 lg:px-5 py-2 lg:py-2.5 rounded-xl font-bold transition-all shadow-lg hover:scale-[1.02] active:scale-[0.98] text-sm"
         >
           <InstagramIcon class="w-4 h-4" />
-          <span>Relatório Instagram</span>
+          <span class="hidden sm:inline">Relatório Instagram</span>
+          <span class="sm:hidden">Instagram</span>
         </button>
       </div>
     </div>
 
     <!-- Header Público -->
-    <div v-else class="flex items-center justify-between bg-surface/40 backdrop-blur-md p-6 rounded-2xl border border-white/5 mb-4 shadow-lg">
+    <div v-else class="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-surface/40 backdrop-blur-md p-4 lg:p-6 rounded-2xl border border-white/5 mb-4 shadow-lg gap-4">
       <div class="flex items-center space-x-4">
         <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-glow overflow-hidden">
           <img src="/image.png" alt="FAPA" class="w-full h-full object-contain" />
@@ -113,7 +115,7 @@
     </div>
 
     <!-- Filtros Ativos (Chips) -->
-    <div v-if="filterDevice !== 'all' || filterAudience !== 'all' || filterSource !== 'all'" class="flex items-center gap-3 -mt-2">
+    <div v-if="filterDevice !== 'all' || filterAudience !== 'all' || filterSource !== 'all'" class="flex flex-wrap items-center gap-2 lg:gap-3 -mt-2">
       <span class="text-sm text-text-muted font-medium">Filtros aplicados:</span>
       
       <!-- Device Chip -->
@@ -146,18 +148,18 @@
     </div>
 
     <!-- Main Grid Layout -->
-    <div class="grid grid-cols-12 gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-4 lg:gap-6">
       
       <!-- Coluna Esquerda: KPIs (Span 4) -->
-      <div class="col-span-12 lg:col-span-4 flex flex-col gap-6">
+      <div class="sm:col-span-1 lg:col-span-4 flex flex-col gap-4 lg:gap-6">
         <!-- KPI 1 -->
-        <div class="bg-surface/40 backdrop-blur-xl border border-white/5 p-6 rounded-2xl relative overflow-hidden group shadow-lg flex-1 flex flex-col justify-center">
+        <div class="bg-surface/40 backdrop-blur-xl border border-white/5 p-4 lg:p-6 rounded-2xl relative overflow-hidden group shadow-lg flex-1 flex flex-col justify-center">
           <div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -mr-10 -mt-10 group-hover:bg-primary/10 transition-colors"></div>
           <div class="flex justify-between items-start mb-2">
             <p class="text-sm text-text-muted font-bold uppercase tracking-wider">Visualizações de Página</p>
           </div>
           <div class="flex items-end justify-between">
-            <h3 class="text-5xl font-heading font-bold text-white tracking-tight">{{ formatNumber(metrics.pageViews) }}</h3>
+            <h3 class="text-3xl lg:text-5xl font-heading font-bold text-white tracking-tight">{{ formatNumber(metrics.pageViews) }}</h3>
             <div class="text-right">
               <span class="text-lg font-bold" :class="metrics.growth > 0 ? 'text-primary' : 'text-red-500'">{{ metrics.growth > 0 ? '+' : '' }}{{ metrics.growth }}%</span>
               <p class="text-xs text-text-muted mt-1">vs período anterior</p>
@@ -166,13 +168,13 @@
         </div>
 
         <!-- KPI 2 -->
-        <div class="bg-surface/40 backdrop-blur-xl border border-white/5 p-6 rounded-2xl relative overflow-hidden group shadow-lg flex-1 flex flex-col justify-center">
+        <div class="bg-surface/40 backdrop-blur-xl border border-white/5 p-4 lg:p-6 rounded-2xl relative overflow-hidden group shadow-lg flex-1 flex flex-col justify-center">
           <div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -mr-10 -mt-10 group-hover:bg-primary/10 transition-colors"></div>
           <div class="flex justify-between items-start mb-2">
             <p class="text-sm text-text-muted font-bold uppercase tracking-wider">Online Agora</p>
           </div>
           <div class="flex items-end justify-between">
-            <h3 class="text-5xl font-heading font-bold text-white tracking-tight">{{ formatNumber(metrics.realtimeActiveUsers || 0) }}</h3>
+            <h3 class="text-3xl lg:text-5xl font-heading font-bold text-white tracking-tight">{{ formatNumber(metrics.realtimeActiveUsers || 0) }}</h3>
             <div class="text-right">
               <span v-if="hasRealData" class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-green-500/10 text-green-400 text-[10px] font-bold uppercase tracking-wider mb-2 border border-green-500/20">
                 <div class="w-1 h-1 bg-green-500 rounded-full animate-pulse"></div>
@@ -188,7 +190,7 @@
       </div>
 
       <!-- Top Right: Gráfico de Linha (Span 8) -->
-      <div class="col-span-12 lg:col-span-8 bg-surface/40 backdrop-blur-xl border border-white/5 p-6 rounded-2xl shadow-lg relative">
+      <div class="sm:col-span-1 lg:col-span-8 bg-surface/40 backdrop-blur-xl border border-white/5 p-4 lg:p-6 rounded-2xl shadow-lg relative">
         <h3 class="text-sm font-bold text-text-muted uppercase tracking-wider mb-6">Evolução de Acessos</h3>
         <div class="h-[240px]">
           <Line v-if="renderChart" :data="lineData" :options="lineOptions" />
@@ -196,7 +198,7 @@
       </div>
 
       <!-- Bottom Left: Gráfico de Barras -->
-      <div class="col-span-12 lg:col-span-4 bg-surface/40 backdrop-blur-xl border border-white/5 p-6 rounded-2xl shadow-lg">
+      <div class="sm:col-span-1 lg:col-span-4 bg-surface/40 backdrop-blur-xl border border-white/5 p-4 lg:p-6 rounded-2xl shadow-lg">
         <div class="flex justify-between items-center mb-6">
           <h3 class="text-sm font-bold text-text-muted uppercase tracking-wider">Acessos por Dispositivo</h3>
           <SmartphoneIcon class="w-4 h-4 text-primary" />
@@ -207,7 +209,7 @@
       </div>
 
       <!-- Bottom Middle: Novos vs Retornantes (Donut) -->
-      <div class="col-span-12 lg:col-span-3 bg-surface/40 backdrop-blur-xl border border-white/5 p-6 rounded-2xl shadow-lg relative overflow-hidden flex flex-col">
+      <div class="sm:col-span-1 lg:col-span-3 bg-surface/40 backdrop-blur-xl border border-white/5 p-4 lg:p-6 rounded-2xl shadow-lg relative overflow-hidden flex flex-col">
         <div class="flex justify-between items-center mb-4">
           <h3 class="text-sm font-bold text-text-muted uppercase tracking-wider">Público</h3>
           <UsersIcon class="w-4 h-4 text-primary" />
@@ -221,7 +223,7 @@
       </div>
 
       <!-- Bottom Right: Gráfico de Barras Longo -->
-      <div class="col-span-12 lg:col-span-5 bg-surface/40 backdrop-blur-xl border border-white/5 p-6 rounded-2xl shadow-lg">
+      <div class="sm:col-span-1 lg:col-span-5 bg-surface/40 backdrop-blur-xl border border-white/5 p-4 lg:p-6 rounded-2xl shadow-lg">
         <div class="flex justify-between items-center mb-6">
           <h3 class="text-sm font-bold text-text-muted uppercase tracking-wider">Acessos por Origem</h3>
           <GlobeIcon class="w-4 h-4 text-primary" />
@@ -232,7 +234,7 @@
       </div>
 
       <!-- Row 3 Left: Insight IA -->
-      <div class="col-span-12 lg:col-span-5 bg-gradient-to-br from-surface/60 to-surface/40 backdrop-blur-xl border border-primary/20 p-6 rounded-2xl shadow-lg relative overflow-hidden group">
+      <div class="sm:col-span-2 lg:col-span-5 bg-gradient-to-br from-surface/60 to-surface/40 backdrop-blur-xl border border-primary/20 p-4 lg:p-6 rounded-2xl shadow-lg relative overflow-hidden group">
         <div class="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-3xl -mr-10 -mt-10"></div>
         <div class="flex justify-between items-center mb-4">
           <h3 class="text-sm font-bold text-primary uppercase tracking-wider flex items-center gap-2">
@@ -246,7 +248,7 @@
         <p class="text-sm text-gray-300 leading-relaxed min-h-[60px]" :class="{'opacity-50': isLoadingInsight}">
           {{ aiInsight }}
         </p>
-        <div class="mt-6 flex justify-between items-end">
+        <div class="mt-4 lg:mt-6 flex justify-between items-end">
           <div>
             <p class="text-xs text-text-muted uppercase tracking-wider mb-1">Duração Média</p>
             <h4 class="text-3xl font-heading font-bold text-white">{{ metrics.avgDuration }}</h4>
@@ -259,7 +261,7 @@
       </div>
 
       <!-- Row 3 Right: Páginas Mais Acessadas -->
-      <div class="col-span-12 lg:col-span-7 bg-surface/40 backdrop-blur-xl border border-white/5 p-6 rounded-2xl shadow-lg">
+      <div class="sm:col-span-2 lg:col-span-7 bg-surface/40 backdrop-blur-xl border border-white/5 p-4 lg:p-6 rounded-2xl shadow-lg">
         <div class="flex justify-between items-center mb-6">
           <h3 class="text-sm font-bold text-text-muted uppercase tracking-wider">Páginas Mais Acessadas</h3>
           <FileTextIcon class="w-4 h-4 text-primary" />
@@ -293,7 +295,7 @@
       </div>
 
       <!-- Row 4 Left: Cidades -->
-      <div class="col-span-12 lg:col-span-4 bg-surface/40 backdrop-blur-xl border border-white/5 p-6 rounded-2xl shadow-lg flex flex-col">
+      <div class="sm:col-span-1 lg:col-span-4 bg-surface/40 backdrop-blur-xl border border-white/5 p-4 lg:p-6 rounded-2xl shadow-lg flex flex-col">
         <div class="flex justify-between items-center mb-6">
           <h3 class="text-sm font-bold text-text-muted uppercase tracking-wider">Ativos por Cidade</h3>
           <MapPinIcon class="w-4 h-4 text-primary" />
@@ -321,7 +323,7 @@
       </div>
 
       <!-- Row 4 Right: Chat Interativo com IA -->
-      <div class="col-span-12 lg:col-span-8 bg-surface/40 backdrop-blur-xl border border-white/5 rounded-2xl shadow-lg overflow-hidden flex flex-col max-h-[500px]">
+      <div class="sm:col-span-1 lg:col-span-8 bg-surface/40 backdrop-blur-xl border border-white/5 rounded-2xl shadow-lg overflow-hidden flex flex-col max-h-[400px] lg:max-h-[500px]">
         <!-- Header do Chat -->
         <div class="flex items-center justify-between p-5 border-b border-white/5">
           <div class="flex items-center gap-3">
@@ -340,7 +342,7 @@
         </div>
 
         <!-- Mensagens -->
-        <div ref="chatContainer" class="p-5 space-y-4 max-h-[320px] overflow-y-auto scroll-smooth" style="scrollbar-width: thin; scrollbar-color: #333 transparent;">
+        <div ref="chatContainer" class="p-3 lg:p-5 space-y-4 max-h-[250px] lg:max-h-[320px] overflow-y-auto scroll-smooth" style="scrollbar-width: thin; scrollbar-color: #333 transparent;">
           <!-- Mensagem de boas-vindas -->
           <div class="flex items-start gap-3">
             <div class="w-7 h-7 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">

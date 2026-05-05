@@ -1,18 +1,18 @@
 <template>
-  <div class="space-y-8 pb-20">
+  <div class="space-y-6 lg:space-y-8 pb-24 lg:pb-20">
     <header>
-      <h2 class="text-3xl font-heading font-bold text-white">Configurações</h2>
+      <h2 class="text-2xl lg:text-3xl font-heading font-bold text-white">Configurações</h2>
       <p class="text-text-muted mt-2">Personalize o CRM, os nichos de atuação e seus scripts de vendas.</p>
     </header>
 
     <div class="flex flex-col md:flex-row gap-8">
       <!-- Tabs Menu -->
-      <nav class="w-full md:w-64 space-y-2 shrink-0">
+      <nav class="flex flex-row lg:flex-col lg:w-64 gap-2 shrink-0 overflow-x-auto no-scrollbar pb-2 lg:pb-0">
         <button 
           v-for="tab in tabs" 
           :key="tab.id"
           @click="activeTab = tab.id"
-          class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all font-medium text-left"
+          class="flex-shrink-0 lg:w-full flex items-center space-x-3 px-4 py-2.5 lg:py-3 rounded-xl transition-all font-medium text-left whitespace-nowrap"
           :class="activeTab === tab.id ? 'bg-primary/20 text-primary border border-primary/30' : 'text-text-muted hover:bg-white/5 hover:text-white border border-transparent'"
         >
           <component :is="tab.icon" class="w-5 h-5" />
@@ -21,7 +21,7 @@
       </nav>
 
       <!-- Content Area -->
-      <div class="flex-1 glass-card p-8">
+      <div class="flex-1 glass-card p-4 lg:p-8">
         
         <!-- Perfil -->
         <div v-if="activeTab === 'profile'" class="space-y-6 animate-in fade-in zoom-in-95 duration-300">
@@ -62,8 +62,8 @@
             </button>
           </div>
 
-          <div v-if="showAddNiche" class="bg-background/50 border border-primary/30 p-6 rounded-2xl mb-8 space-y-4">
-            <div class="grid grid-cols-2 gap-4">
+          <div v-if="showAddNiche" class="bg-background/50 border border-primary/30 p-4 lg:p-6 rounded-2xl mb-8 space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="space-y-2">
                 <label class="block text-sm font-bold text-text-dim uppercase tracking-wider ml-1">Identificador (ex: ADVOGADOS)</label>
                 <input v-model="newNiche.id" type="text" class="w-full bg-surface border border-white/5 rounded-xl px-4 py-2 text-white uppercase focus:border-primary/50 outline-none" />
